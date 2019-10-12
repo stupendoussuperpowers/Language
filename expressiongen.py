@@ -21,23 +21,33 @@ def traverseTree(root):
         print(root)
         traverseTree(root.subp[1])
 
+def boolCheckfor(exp):
+    return parseTree(exp)
+
 def parseTree(root):
     if root.type == "Number":
-        return root.val
+        return Token(type = "Number", val = root.val)
     else:
+        if root.val == "If":
+            if boolCheckfor(root.subp[0]):
+                return parseTree(root.subp[1])
         if root.val == "+":
-            return parseTree(root.subp[0]) + parseTree(root.subp[1])
+            return Token(type = "Number", val = parseTree(root.subp[1]).val + parseTree(root.subp[0]).val)
         if root.val == "-":
-            return parseTree(root.subp[0]) - parseTree(root.subp[1])
+            return Token(type = "Number", val = parseTree(root.subp[1]).val - parseTree(root.subp[0]).val)
         if root.val == "*":
-            return parseTree(root.subp[0]) * parseTree(root.subp[1])
+            return Token(type = "Number", val = parseTree(root.subp[1]).val * parseTree(root.subp[0]).val)
         if root.val == "/":
-            return parseTree(root.subp[0]) / parseTree(root.subp[1])
+            return Token(type = "Number", val = parseTree(root.subp[1]).val / parseTree(root.subp[0]).val)
+        if root.val == ">":
+            return Token(type = "Boolean", val = parseTree(root.subp[1]).val > parseTree(root.subp[0]).val)
+        if root.val == "<":
+            return Token(type = "Boolean", val = parseTree(root.subp[1]).val < parseTree(root.subp[0]).val)
 
 def infixToPostfix(exp):
     post = []
     stack = []
-    pred = {'+':1, '-':1, '*':2, '/':2, '(': 0}
+    pred = {'+':1, '-':1, '*':2, '/':2, '(': 0, "If": -10, ">":-9, "<":-9}
 
     for i in exp:
         if i.type == "Number":
@@ -63,5 +73,7 @@ def infixToPostfix(exp):
 
 
 if __name__ == "__main__":
-    for i in infixToPostfix(tokenGenerator("5 + 9 * 7".split(" "))):
-        print(i.val)
+    f = tokenGenerator(generateAtoms("5 + 6 if 5 > 7"))
+    g = infixToPostfix(f)
+    #print(f.val)
+    #print(f.subp[0].val)

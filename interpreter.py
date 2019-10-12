@@ -8,4 +8,4 @@ while inp != "exit":
     if inp == "exit":
         break
     f = generateAtoms(inp)
-    print(parseTree(expTree(infixToPostfix(tokenGenerator(f)))))
+    print(parseTree(expTree(infixToPostfix(tokenGenerator(f)))).val)

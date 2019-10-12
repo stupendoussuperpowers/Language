@@ -6,32 +6,33 @@ def expTree(postfix):
         if i.type == "Number":
             stack.append(i)
         else:
-            i.op2 = stack.pop()
-            i.op1 = stack.pop()
+            i.subp = [None, None]
+            i.subp[0] = stack.pop()
+            i.subp[1] = stack.pop()
             stack.append(i)
 
     return stack.pop()
 
 def traverseTree(root):
-    if not root.op1:
+    if not root.subp:
         print(root)
     else:
-        traverseTree(root.op1)
+        traverseTree(root.subp[0])
         print(root)
-        traverseTree(root.op2)
+        traverseTree(root.subp[1])
 
 def parseTree(root):
     if root.type == "Number":
         return root.val
     else:
         if root.val == "+":
-            return parseTree(root.op1) + parseTree(root.op2)
+            return parseTree(root.subp[0]) + parseTree(root.subp[1])
         if root.val == "-":
-            return parseTree(root.op1) - parseTree(root.op2)
+            return parseTree(root.subp[0]) - parseTree(root.subp[1])
         if root.val == "*":
-            return parseTree(root.op1) * parseTree(root.op2)
+            return parseTree(root.subp[0]) * parseTree(root.subp[1])
         if root.val == "/":
-            return parseTree(root.op1) / parseTree(root.op2)
+            return parseTree(root.subp[0]) / parseTree(root.subp[1])
 
 def infixToPostfix(exp):
     post = []

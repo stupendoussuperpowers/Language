@@ -2,11 +2,10 @@ from pprint import pprint
 
 class Token:
 
-    def __init__(self, type, val, op1=None, op2=None):
+    def __init__(self, type, val, subp = None):
         self.type = type
         self.val = val
-        self.op1 = op1
-        self.op2 = op2
+        self.subp = subp
 
     def __str__(self):
         return "Name : " + self.type + " Val:" +str(self.val)
@@ -14,7 +13,7 @@ class Token:
 def generateAtoms(string):
     buff = ""
     out = []
-    operators = ["+", "-", "/", "*"]
+    operators = ["+", "-", "/", "*", "(", ")"]
 
     for i in string:
         if i == " ":

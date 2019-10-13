@@ -13,7 +13,7 @@ class Token:
 def generateAtoms(string):
     buff = ""
     out = []
-    operators = ["+", "-", "/", "*", "(", ")", "<", ">","{","}"]
+    operators = ["+", "-", "/", "*", "(", ")", "<", ">","{","}", "?", ":"]
 
     for i in string:
         if i == " ":
@@ -36,13 +36,13 @@ def tokenGenerator(atoms):
 
         if i.isdigit():
             tokenlistfinal.append(Token(type = "Number", val = int(i)))
-        elif i == "if":
-            tokenlistfinal.append(Token(type = "If", val = "If"))
-        elif i == "then":
-            tokenlistfinal.append(Token(type = "If", val = "Then"))
+        elif i == "?":
+            tokenlistfinal.append(Token(type = "If", val = "?"))
+        elif i == ":":
+            tokenlistfinal.append(Token(type = "If", val = ":"))
         elif i == "{" or i == "}" or i == "(" or i == ")":
             tokenlistfinal.append(Token(type = "Bracket", val = i))
-        elif i in ["*", "+", "*", "/", "<", ">"]:
+        elif i in ["*", "+","-","*", "/", "<", ">"]:
             tokenlistfinal.append(Token(type = "BinaryOp", val = i))
 
     return tokenlistfinal

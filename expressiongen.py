@@ -22,15 +22,17 @@ def traverseTree(root):
         traverseTree(root.subp[1])
 
 def boolCheckfor(exp):
-    return parseTree(exp)
+    return parseTree(exp).val
 
 def parseTree(root):
     if root.type == "Number":
         return Token(type = "Number", val = root.val)
     else:
-        if root.val == "If":
-            if boolCheckfor(root.subp[0]):
-                return parseTree(root.subp[1])
+        if root.val == "?":
+            if boolCheckfor(root.subp[1]):
+                return parseTree(root.subp[0].subp[1])
+            else:
+                return parseTree(root.subp[0].subp[0])
         if root.val == "+":
             return Token(type = "Number", val = parseTree(root.subp[1]).val + parseTree(root.subp[0]).val)
         if root.val == "-":
@@ -47,9 +49,10 @@ def parseTree(root):
 def infixToPostfix(exp):
     post = []
     stack = []
-    pred = {'+':1, '-':1, '*':2, '/':2, '(': 0, "If": -10, ">":-9, "<":-9}
+    pred = {'+':1, '-':1, '*':2, '/':2, '(': -11, "?": -10, ">":-9, "<":-9, ":":-9}
 
     for i in exp:
+
         if i.type == "Number":
             post.append(i)
 
@@ -73,7 +76,7 @@ def infixToPostfix(exp):
 
 
 if __name__ == "__main__":
-    f = tokenGenerator(generateAtoms("5 + 6 if 5 > 7"))
+    f = tokenGenerator(generateAtoms("5 > 6 ? 7: 11"))
     g = infixToPostfix(f)
     #print(f.val)
     #print(f.subp[0].val)

@@ -75,6 +75,7 @@ def infixToPostfix(exp):
     return post
 
 
+
 if __name__ == "__main__":
     f = tokenGenerator(generateAtoms("5 > 6 ? 7: 11"))
     g = infixToPostfix(f)

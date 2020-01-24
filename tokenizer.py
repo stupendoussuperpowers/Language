@@ -1,6 +1,6 @@
 from pprint import pprint
 
-class Token:
+class Token(object):
 
     def __init__(self, type, val, subp = None):
         self.type = type
@@ -44,6 +44,8 @@ def tokenGenerator(atoms):
             tokenlistfinal.append(Token(type = "Bracket", val = i))
         elif i in ["*", "+","-","*", "/", "<", ">"]:
             tokenlistfinal.append(Token(type = "BinaryOp", val = i))
+        elif i in ["if", "else", "elif"]:
+            tokenlistfinal.append(Token(type = "If", val = i))
 
     return tokenlistfinal
 

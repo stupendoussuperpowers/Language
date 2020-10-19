@@ -102,8 +102,6 @@ def tokens(string):
         if i == "":
             atoms.remove(i)
 
-    #print(atoms)
-
     tokenlist = []
     
     for i in atoms:
@@ -185,28 +183,7 @@ def parseIf(exp):
     body = parseBody(body)
 
     return IfToken(exp[0].val, cond, body)
-'''
-def parseFunc(exp):
-    name = exp[1]
 
-    j = 3
-    arguments = []
-    while j < len(exp) and exp[j].val != ")":
-        if exp[j].type == "Variable":
-            arguments.append(exp[j])
-        j+=1
-    
-    j+=2
-
-    body = []
-    while j < len(exp) and exp[j].val != "}":
-        body.append(exp[j])
-        j+=1
-
-    body = parseBody(body)
-    
-    return FuncToken(name, arguments, body)
-'''
 def parseFunc(exp):
     name = exp[1]
 
@@ -236,9 +213,7 @@ def parseBody(exp):
         while j < len(exp) and exp[j].val != ";":
             cond.append(exp[j])
             j+=1
-##        for i in cond:
-##            print(i)
-##        print("-"*80)
+
         cond = parseExp(cond)
         
         body.append(cond)
@@ -300,13 +275,6 @@ def inorder(exp, s):
         s += inorder(exp.op2, "")
     return s
 
-
-##func = parseExp(tokens("function foo (a, b) { 5+6; a = 5+6*7 }"))
-##test = parseExp(tokens("foo(5,6)"))
-##
-##things = parseBody(tokens("var a = 5;foo(a);"))
-##print("="*80)
-
 def genCode(parse):
 
     if parse.type == "Variable":
@@ -348,7 +316,6 @@ def callCode(parse):
 
     return s
 
-#f = parseFunc(tokens("function foo(a, b, c) { var f = a+b+c;}"))
 
 data = ''
 with open("inputtest.txt", "r") as f:

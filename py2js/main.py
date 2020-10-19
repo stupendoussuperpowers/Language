@@ -16,13 +16,14 @@ def helloworld(s):
 '''
              ]
 
-for s in testcodes:
-    print(s)
-    s = ''.join(i for i in handletabs(s))
-    s = s.replace("\t","")
-    # print(s)
-    l = tokens(s)
-    #print(l)
-    q = parseExp(l)
-    h = genCode(q)
-    print(h)
+if __name__ == "__main__":
+    for s in testcodes:
+        print(s)
+        s = ''.join(i for i in handletabs(s))
+        s = s.replace("\t","")
+        # print(s)
+        l = tokens(s)
+        #print(l)
+        q = parseExp(l)
+        h = genCode(q)
+        print(h)
